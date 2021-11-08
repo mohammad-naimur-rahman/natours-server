@@ -11,12 +11,6 @@ app.use(express.json())
 
 if (process.env.NODE_ENV !== 'production') app.use(morgan('dev'))
 
-// Our Own Middleware
-app.use((req, res, next) => {
-  console.log('Hello from the middleware!')
-  next()
-})
-
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString()
   next()
@@ -29,5 +23,13 @@ app.route('/').get(initial)
 
 app.use('/api/v1/tours', tourRouter)
 app.use('/api/v1/users', userRouter)
+
+//-- For Undeclared Routes
+app.all('*', (req, res, next) => {
+  res.status(404).json({
+    status: 'fail',
+    message: `Route ${req.originalUrl} not found`
+  })
+})
 
 module.exports = app
