@@ -43,6 +43,14 @@ module.exports = (err, req, res, next) => {
       error = new AppError(`Invalid input data. ${errors.join(', ')}`, 400)
     }
 
+    if (error.name === 'jsonWebTokenError') {
+      error = new AppError('Invalid token', 401)
+    }
+
+    if (error.name === 'TokenExpiredError') {
+      error = new AppError('Token expired', 401)
+    }
+
     sendErrorProd(error, res)
   }
 }
