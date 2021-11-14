@@ -19,7 +19,18 @@ app.use(express.json({ limit: '10kb' }))
 app.use(helmet())
 app.use(mongoSanitize())
 app.use(xss())
-app.use(hpp())
+app.use(
+  hpp({
+    whitelist: [
+      'duration',
+      'ratingsAverage',
+      'ratingsQuantity',
+      'maxGroupSize',
+      'difficulty',
+      'price'
+    ]
+  })
+)
 
 if (process.env.NODE_ENV !== 'production') app.use(morgan('dev'))
 
