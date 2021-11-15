@@ -5,8 +5,7 @@ const Tour = require('./../../models/tourModel')
 
 dotenv.config({ path: './config.env' })
 
-const DB =
-  'mongodb+srv://yourNaimur:.qmZGJ.A5-Fvfts@cluster0.avi8n.mongodb.net/natours?retryWrites=true&w=majority&ssl=true'
+const DB = process.env.DATABASE_URI
 
 mongoose
   .connect(DB, {
