@@ -5,14 +5,15 @@ const Tour = require('./../../models/tourModel')
 
 dotenv.config({ path: './config.env' })
 
-const DB = process.env.DATABASE_URI
+const DB =
+  'mongodb+srv://yourNaimur:.qmZGJ.A5-Fvfts@cluster0.avi8n.mongodb.net/natours?retryWrites=true&w=majority&ssl=true'
 
 mongoose
   .connect(DB, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
-    useUnifiedTopology: true,
+    useUnifiedTopology: true
   })
   .then(() => {
     console.log('Connected to database successfully!')
@@ -22,9 +23,7 @@ mongoose
   .catch(err => console.log(err))
 
 // Read JSON File
-const tours = JSON.parse(
-  fs.readFileSync(__dirname + '/tours-simple.json', 'utf-8')
-)
+const tours = JSON.parse(fs.readFileSync(__dirname + '/tours.json', 'utf-8'))
 
 // Import Data Into DB
 const importData = async () => {
