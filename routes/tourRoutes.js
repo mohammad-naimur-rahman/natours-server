@@ -1,6 +1,8 @@
 const express = require('express')
 const tourController = require('./../controllers/tourController')
 const authController = require('./../controllers/authController')
+const reviewRouter = require('./../routes/reviewRoutes')
+
 const {
   getAllTours,
   createTour,
@@ -12,7 +14,11 @@ const {
   getMonthlyPlan
 } = tourController
 const { protect, restrictTo } = authController
+
 const router = express.Router()
+
+//-- To transfer routes from tour routes to review routes
+router.use('/:tourId/reviews', reviewRouter)
 
 router.route('/tour-stats/').get(getTourStats)
 router.route('/monthly-plan/:year').get(getMonthlyPlan)

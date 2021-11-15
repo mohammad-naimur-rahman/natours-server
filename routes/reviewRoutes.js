@@ -6,7 +6,7 @@ const { getReviews, getReview, createReview, updateReview, deleteReview } =
   reviewcontroller
 const { protect, restrictTo } = authController
 
-const router = express.Router()
+const router = express.Router({ mergeParams: true }) // to get params from tour routes
 
 router
   .route('/')
