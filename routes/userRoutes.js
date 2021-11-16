@@ -33,7 +33,7 @@ router.route('/').get(getAllUsers).post(createUser)
 router
   .route('/:id')
   .get(getUser)
-  .patch(updateUser)
+  .patch(protect, updateUser)
   .delete(protect, restrictTo('admin'), deleteUser)
 
 module.exports = router
