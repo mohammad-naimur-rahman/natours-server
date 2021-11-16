@@ -26,16 +26,18 @@ router.post('/login', login)
 
 router.post('/forgotPassword', forgotPassword)
 router.patch('/resetPassword/:token', resetPassword)
-router.patch('/updateMyPassword', protect, updatePassword)
-router.get('/me', protect, getMe)
-router.patch('/updateMe', protect, updateMe)
-router.delete('/deleteMe', protect, deleteMe)
+
+// To protect all routes after this middleware
+router.use(protect)
+
+router.patch('/updateMyPassword', updatePassword)
+router.get('/me', getMe)
+router.patch('/updateMe', updateMe)
+router.delete('/deleteMe', deleteMe)
+
+router.use(restrictTo('admin'))
 
 router.route('/').get(getAllUsers).post(createUser)
-router
-  .route('/:id')
-  .get(getUser)
-  .patch(protect, restrictTo('admin'), updateUser)
-  .delete(protect, restrictTo('admin'), deleteUser)
+router.route('/:id').get(getUser).patch(updateUser).delete(deleteUser)
 
 module.exports = router
