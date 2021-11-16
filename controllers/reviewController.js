@@ -1,4 +1,4 @@
-const Review = require('./../models/reviewModal')
+const Review = require('./../models/reviewModel')
 const {
   handleDeleteOne,
   handleUpdateOne,
