@@ -1,8 +1,4 @@
 const express = require('express')
-const tourController = require('./../controllers/tourController')
-const authController = require('./../controllers/authController')
-const reviewRouter = require('./../routes/reviewRoutes')
-
 const {
   getAllTours,
   createTour,
@@ -12,8 +8,9 @@ const {
   aliasTopTours,
   getTourStats,
   getMonthlyPlan
-} = tourController
-const { protect, restrictTo } = authController
+} = require('./../controllers/tourController')
+const { protect, restrictTo } = require('./../controllers/authController')
+const reviewRouter = require('./../routes/reviewRoutes')
 
 const router = express.Router()
 

@@ -1,5 +1,6 @@
 const Review = require('./../models/reviewModal')
 const catchAsync = require('./../utils/catchAsync')
+const { handleDeleteOne } = require('./handlerFactory')
 
 exports.getAllReviews = catchAsync(async (req, res, next) => {
   let filter = {}
@@ -55,10 +56,4 @@ exports.updateReview = catchAsync(async (req, res, next) => {
   })
 })
 
-exports.deleteReview = catchAsync(async (req, res, next) => {
-  await Review.findByIdAndDelete(req.params.id)
-  res.status(204).json({
-    status: 'success',
-    data: null
-  })
-})
+exports.deleteReview = handleDeleteOne(Review)
