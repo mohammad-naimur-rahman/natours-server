@@ -14,3 +14,31 @@ exports.handleDeleteOne = Model =>
       data: null
     })
   })
+
+exports.handleUpdateOne = Model =>
+  catchAsync(async (req, res, next) => {
+    const updatedDoc = await Model.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true
+    })
+
+    if (!updatedDoc) {
+      return next(new AppError('No document found with that ID', 404))
+    }
+
+    res.status(201).json({
+      status: 'success',
+      data: { data: updatedDoc }
+    })
+  })
+
+exports.handleCreateOne = Model =>
+  catchAsync(async (req, res, next) => {
+    const doc = await Model.create(req.body)
+    res.status(201).json({
+      status: 'success',
+      data: {
+        data: doc
+      }
+    })
+  })

@@ -1,7 +1,7 @@
 const User = require('./../models/userModel')
 const catchAsync = require('./../utils/catchAsync')
 const AppError = require('./../utils/appError')
-const { handleDeleteOne } = require('./handlerFactory')
+const { handleDeleteOne, handleUpdateOne } = require('./handlerFactory')
 
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {}
@@ -68,11 +68,6 @@ exports.getUser = (req, res) => {
   })
 }
 
-exports.updateUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet defined'
-  })
-}
-
+// These actions below can be done by only admins
+exports.updateUser = handleUpdateOne(User)
 exports.deleteUser = handleDeleteOne(User)

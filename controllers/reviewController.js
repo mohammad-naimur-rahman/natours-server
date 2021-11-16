@@ -1,6 +1,10 @@
 const Review = require('./../models/reviewModal')
 const catchAsync = require('./../utils/catchAsync')
-const { handleDeleteOne } = require('./handlerFactory')
+const {
+  handleDeleteOne,
+  handleUpdateOne,
+  handleCreateOne
+} = require('./handlerFactory')
 
 exports.getAllReviews = catchAsync(async (req, res, next) => {
   let filter = {}
@@ -30,30 +34,12 @@ exports.getReview = catchAsync(async (req, res, next) => {
   })
 })
 
-exports.createReview = catchAsync(async (req, res, next) => {
-  // to enable nested routes
+exports.setTourUserIds = (req, res, next) => {
   if (!req.body.tour) req.body.tour = req.params.tourId
   if (!req.body.user) req.body.user = req.user.id
-  const newReview = await Review.create(req.body)
-  res.status(201).json({
-    status: 'success',
-    data: {
-      review: newReview
-    }
-  })
-})
+  next()
+}
 
-exports.updateReview = catchAsync(async (req, res, next) => {
-  const review = await Review.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true
-  })
-  res.status(200).json({
-    status: 'success',
-    data: {
-      review
-    }
-  })
-})
-
+exports.createReview = handleCreateOne(Review)
+exports.updateReview = handleUpdateOne(Review)
 exports.deleteReview = handleDeleteOne(Review)
