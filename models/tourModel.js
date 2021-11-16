@@ -41,14 +41,7 @@ const tourSchema = new mongoose.Schema(
     ratingsQuantity: {
       type: {
         Number,
-        validate: {
-          message: 'Discount price({VALUE}) should be below regular price',
-          // custom validation (own made)
-          validator: function (val) {
-            // here the `val` is only available when creating a new document
-            return val < this.price
-          }
-        }
+        default: 0
       },
       default: 0
     },
@@ -56,7 +49,17 @@ const tourSchema = new mongoose.Schema(
       type: Number,
       required: [true, 'A tour must have a price']
     },
-    priceDiscount: Number,
+    priceDiscount: {
+      type: Number,
+      validate: {
+        message: 'Discount price({VALUE}) should be below regular price',
+        // custom validation (own made)
+        validator: function (val) {
+          // here the `val` is only available when creating a new document
+          return val < this.price
+        }
+      }
+    },
     summary: {
       type: String,
       trim: true,
