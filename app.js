@@ -13,14 +13,19 @@ const globalErrorHandler = require('./controllers/errorController')
 const tourRouter = require('./routes/tourRoutes')
 const userRouter = require('./routes/userRoutes')
 const reviewRouter = require('./routes/reviewRoutes')
+// ^^ END OF IMPORTS ^^ //
 
 const app = express()
 
+//-- Setting templating engine
 app.set('view engine', 'pug')
 app.set('views', path.join(__dirname, 'views'))
 
 //-- Global Middlewares
+// to serve static files from public folder
 app.use(express.static(path.join(__dirname, 'public')))
+
+// For optimization and security
 app.use(express.json({ limit: '10kb' }))
 app.use(helmet())
 app.use(mongoSanitize())
@@ -55,7 +60,10 @@ app.use((req, res, next) => {
 
 //-- Route Handlers
 app.get('/', (req, res) => {
-  res.status(200).render('base')
+  res.status(200).render('base', {
+    title: 'Natours',
+    tour: 'The Badass Company'
+  })
 })
 
 // const initial = (req, res) => res.status(200).send('I am on')
