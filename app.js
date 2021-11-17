@@ -13,6 +13,7 @@ const globalErrorHandler = require('./controllers/errorController')
 const tourRouter = require('./routes/tourRoutes')
 const userRouter = require('./routes/userRoutes')
 const reviewRouter = require('./routes/reviewRoutes')
+const viewRouter = require('./routes/viewRoutes')
 // ^^ END OF IMPORTS ^^ //
 
 const app = express()
@@ -58,15 +59,8 @@ app.use((req, res, next) => {
   next()
 })
 
-//-- Route Handlers
-app.get('/', (req, res) => res.status(200).render('base'))
-app.get('/overview', (req, res) => res.status(200).render('overview'))
-app.get('/tour', (req, res) => res.status(200).render('tour'))
-
-// const initial = (req, res) => res.status(200).send('I am on')
-
-// app.route('/').get(initial)
-
+//-- Route Handlerr
+app.use('/', viewRouter)
 app.use('/api/v1/tours', tourRouter)
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/reviews', reviewRouter)
