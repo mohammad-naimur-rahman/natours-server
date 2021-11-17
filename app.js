@@ -60,10 +60,7 @@ app.use((req, res, next) => {
 
 //-- Route Handlers
 app.get('/', (req, res) => {
-  res.status(200).render('base', {
-    title: 'Natours',
-    tour: 'The Badass Company'
-  })
+  res.status(200).render('base')
 })
 
 // const initial = (req, res) => res.status(200).send('I am on')
