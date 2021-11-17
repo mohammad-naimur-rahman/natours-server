@@ -59,9 +59,9 @@ app.use((req, res, next) => {
 })
 
 //-- Route Handlers
-app.get('/', (req, res) => {
-  res.status(200).render('base')
-})
+app.get('/', (req, res) => res.status(200).render('base'))
+app.get('/overview', (req, res) => res.status(200).render('overview'))
+app.get('/tour', (req, res) => res.status(200).render('tour'))
 
 // const initial = (req, res) => res.status(200).send('I am on')
 
