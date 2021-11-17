@@ -1,3 +1,4 @@
+const path = require('path')
 const express = require('express')
 const morgan = require('morgan')
 const rateLimit = require('express-rate-limit')
@@ -15,7 +16,11 @@ const reviewRouter = require('./routes/reviewRoutes')
 
 const app = express()
 
+app.set('view engine', 'pug')
+app.set('views', path.join(__dirname, 'views'))
+
 //-- Global Middlewares
+app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json({ limit: '10kb' }))
 app.use(helmet())
 app.use(mongoSanitize())
@@ -49,9 +54,13 @@ app.use((req, res, next) => {
 })
 
 //-- Route Handlers
-const initial = (req, res) => res.status(200).send('I am on')
+app.get('/', (req, res) => {
+  res.status(200).render('base')
+})
 
-app.route('/').get(initial)
+// const initial = (req, res) => res.status(200).send('I am on')
+
+// app.route('/').get(initial)
 
 app.use('/api/v1/tours', tourRouter)
 app.use('/api/v1/users', userRouter)
