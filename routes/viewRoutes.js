@@ -1,5 +1,10 @@
 const express = require('express')
-const { getOverview, getTour } = require('./../controllers/viewsController')
+const { isLoggedIn } = require('../controllers/authController')
+const {
+  getOverview,
+  getTour,
+  getLogin
+} = require('./../controllers/viewsController')
 
 const router = express.Router()
 
@@ -21,7 +26,10 @@ router.use((req, res, next) => {
   next()
 })
 
+router.use(isLoggedIn)
+
 router.get('/', getOverview)
 router.get('/tour/:slug', getTour)
+router.get('/login', getLogin)
 
 module.exports = router
