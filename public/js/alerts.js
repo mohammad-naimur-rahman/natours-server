@@ -1,11 +1,12 @@
-export const showAlert = (alertType, message) => {
-  const alert = document.createElement('div')
-  alert.className = `alert alert--${alertType}`
-  alert.textContent = message
-  const container = document.querySelector('.container')
-  const form = document.querySelector('#book-form')
-  container.insertBefore(alert, form)
-  setTimeout(() => {
-    document.querySelector('.alert').remove()
-  }, 3000)
+export const hideAlert = () => {
+  const el = document.querySelector('.alert')
+  if (el) el.parentElement.removeChild(el)
+}
+
+// type is 'success' or 'error'
+export const showAlert = (type, msg) => {
+  hideAlert()
+  const markup = `<div class="alert alert--${type}">${msg}</div>`
+  document.querySelector('body').insertAdjacentHTML('afterbegin', markup)
+  window.setTimeout(hideAlert, 5000)
 }

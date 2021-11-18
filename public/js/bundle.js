@@ -8734,18 +8734,21 @@ module.exports = require('./lib/axios');
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.showAlert = void 0;
+exports.showAlert = exports.hideAlert = void 0;
 
-var showAlert = function showAlert(alertType, message) {
-  var alert = document.createElement('div');
-  alert.className = "alert alert--".concat(alertType);
-  alert.textContent = message;
-  var container = document.querySelector('.container');
-  var form = document.querySelector('#book-form');
-  container.insertBefore(alert, form);
-  setTimeout(function () {
-    document.querySelector('.alert').remove();
-  }, 3000);
+var hideAlert = function hideAlert() {
+  var el = document.querySelector('.alert');
+  if (el) el.parentElement.removeChild(el);
+}; // type is 'success' or 'error'
+
+
+exports.hideAlert = hideAlert;
+
+var showAlert = function showAlert(type, msg) {
+  hideAlert();
+  var markup = "<div class=\"alert alert--".concat(type, "\">").concat(msg, "</div>");
+  document.querySelector('body').insertAdjacentHTML('afterbegin', markup);
+  window.setTimeout(hideAlert, 5000);
 };
 
 exports.showAlert = showAlert;
@@ -8801,7 +8804,7 @@ var login = /*#__PURE__*/function () {
           case 7:
             _context.prev = 7;
             _context.t0 = _context["catch"](0);
-            alert('error', _context.t0.response.data.message);
+            (0, _alerts.showAlert)('error', 'Invalid email or password');
 
           case 10:
           case "end":
