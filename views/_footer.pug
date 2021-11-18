@@ -7,4 +7,5 @@ footer.footer
     li: a(href='#') Become a guide
     li: a(href='#') Careers 
     li: a(href='#') Contact
-  p.footer__copyright &copy; 2018 by Naimur Rahman. All rights reserved.
+  - const year = new Date().getFullYear()
+  p.footer__copyright= `© ${year} by Naimur Rahman. All rights reserved.`
