@@ -19,3 +19,19 @@ export const login = async (email, password) => {
     showAlert('error', 'Invalid email or password')
   }
 }
+
+export const logout = async () => {
+  try {
+    const res = await axios({
+      mathod: 'GET',
+      url: 'http://localhost:8000/api/v1/users/logout'
+    })
+
+    if (res.data.status === 'success') {
+      showAlert('success', 'Logout Successful!')
+      location.reload()
+    }
+  } catch (error) {
+    showAlert('error', 'Error loggin out, please try again!')
+  }
+}
