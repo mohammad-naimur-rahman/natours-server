@@ -217,7 +217,7 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   user.password = undefined
 
   // 4) Log user in, send JWT
-  createSignToken(newUser, 200, res)
+  createSignToken(user, 200, res)
 })
 
 // Only for rendered pages, no errors!
