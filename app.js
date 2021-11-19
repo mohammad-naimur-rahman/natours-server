@@ -27,9 +27,11 @@ app.set('views', path.join(__dirname, 'views'))
 // to serve static files from public folder
 app.use(express.static(path.join(__dirname, 'public')))
 
-// For optimization and security
 app.use(express.json({ limit: '10kb' }))
 app.use(cookieParser())
+app.use(express.urlencoded({ extended: true, limit: '10kb' }))
+
+// For optimization and security
 app.use(helmet())
 app.use(mongoSanitize())
 app.use(xss())

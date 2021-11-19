@@ -22,10 +22,10 @@ const POLICY =
   "style-src 'self' https: 'unsafe-inline';" +
   'upgrade-insecure-requests;'
 
-router.use((req, res, next) => {
-  res.setHeader(CSP, POLICY)
-  next()
-})
+// router.use((req, res, next) => {
+//   res.setHeader(CSP, POLICY)
+//   next()
+// })
 
 router.get('/', isLoggedIn, getOverview)
 router.get('/tour/:slug', isLoggedIn, getTour)
