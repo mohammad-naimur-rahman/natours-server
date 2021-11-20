@@ -32,11 +32,14 @@ if (userDataForm) {
     e.preventDefault()
     document.querySelector('.btn--save-data').textContent = 'Updating...'
 
-    const name = document.querySelector('#name').value
-    const email = document.querySelector('#email').value
-    await updateSettings({ name, email }, 'data')
+    const form = new FormData()
+    form.append('name', document.querySelector('#name').value)
+    form.append('email', document.querySelector('#email').value)
+    form.append('photo', document.querySelector('#photo').files[0])
 
-    document.querySelector('.btn--save-data').textContent = 'Save Settings'
+    await updateSettings(form, 'data')
+
+    location.reload()
   })
 }
 
