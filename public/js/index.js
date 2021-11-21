@@ -2,6 +2,7 @@ import '@babel/polyfill'
 import { login, logout } from './login'
 import { displayMap } from './mapbox'
 import { updateSettings } from './updateSettings'
+import { bookTour } from './stripe'
 
 // DOM ELEMENTS
 const mapBox = document.getElementById('map')
@@ -9,7 +10,7 @@ const loginForm = document.querySelector('#form')
 const logOutBtn = document.querySelector('#logout')
 const userDataForm = document.querySelector('#update-account-form')
 const userPasswordForm = document.querySelector('#update-password-form')
-
+const bookButton = document.getElementById('book-tour')
 // DELEGATION
 if (mapBox) {
   const locations = JSON.parse(mapBox.dataset.locations)
@@ -62,3 +63,22 @@ if (userPasswordForm) {
     document.querySelector('#password-confirm').value = ''
   })
 }
+
+if (bookButton) {
+  bookButton.addEventListener('click', async e => {
+    console.log('book button clicked')
+    e.target.textContent = 'Processing...'
+    // 1) Get the data
+    const { tourId } = e.target.dataset
+    // 2) Make request to book tour
+    //await bookTour(tourId)
+    // 3) Redirect to the booking page
+    // document.querySelector('.btn--book-tour').textContent = 'Booked!'
+    // setTimeout(() => {
+    //   document.querySelector('.btn--book-tour').textContent = 'Book Tour'
+    // }
+    //  , 2000)
+  })
+}
+
+bookButton.addEventListener('click', console.log('clicked'))
