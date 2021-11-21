@@ -11,7 +11,7 @@ const {
 
 const router = express.Router()
 
-router.user(protect)
+router.use(protect)
 
 router.get('/checkout-session/:tourId', getCheckoutSession)
 
