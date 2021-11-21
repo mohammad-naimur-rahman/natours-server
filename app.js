@@ -37,6 +37,7 @@ app.use(cookieParser())
 
 // For optimization and security
 app.use(cors())
+app.options('*', cors())
 app.use(helmet())
 app.use(mongoSanitize())
 app.use(xss())
