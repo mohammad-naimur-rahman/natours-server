@@ -6,6 +6,7 @@ const {
   getLogin,
   getAccount
 } = require('./../controllers/viewsController')
+const { createBookingCheckout } = require('./../controllers/bookingController')
 
 const router = express.Router()
 
@@ -22,12 +23,12 @@ const POLICY =
   "style-src 'self' https: 'unsafe-inline';" +
   'upgrade-insecure-requests;'
 
-// router.use((req, res, next) => {
-//   res.setHeader(CSP, POLICY)
-//   next()
-// })
+router.use((req, res, next) => {
+  res.setHeader(CSP, POLICY)
+  next()
+})
 
-router.get('/', isLoggedIn, getOverview)
+router.get('/', createBookingCheckout, isLoggedIn, getOverview)
 router.get('/tour/:slug', isLoggedIn, getTour)
 router.get('/login', isLoggedIn, getLogin)
 router.get('/me', protect, getAccount)
