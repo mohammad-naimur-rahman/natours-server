@@ -66,19 +66,15 @@ if (userPasswordForm) {
 
 if (bookButton) {
   bookButton.addEventListener('click', async e => {
-    console.log('book button clicked')
     e.target.textContent = 'Processing...'
     // 1) Get the data
     const { tourId } = e.target.dataset
-    // 2) Make request to book tour
-    //await bookTour(tourId)
-    // 3) Redirect to the booking page
-    // document.querySelector('.btn--book-tour').textContent = 'Booked!'
-    // setTimeout(() => {
-    //   document.querySelector('.btn--book-tour').textContent = 'Book Tour'
-    // }
-    //  , 2000)
+    //2) Make request to book tour
+    await bookTour(tourId)
+    //3) Redirect to the booking page
+    document.querySelector('.btn--book-tour').textContent = 'Booked!'
+    setTimeout(() => {
+      document.querySelector('.btn--book-tour').textContent = 'Book Tour'
+    }, 2000)
   })
 }
-
-bookButton.addEventListener('click', console.log('clicked'))
